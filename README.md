@@ -308,6 +308,8 @@ Removed (1)
 
 <img width="1063" height="936" alt="Screenshot From 2026-04-14 21-48-23" src="https://github.com/user-attachments/assets/18e08901-f806-4fd2-90c4-35712a329aeb" />
 
+<img width="1495" height="163" alt="image" src="https://github.com/user-attachments/assets/e3ad6b91-e201-4680-8ea4-dc079ebc4b2b" />
+
 ---
 
 ## Contributing
