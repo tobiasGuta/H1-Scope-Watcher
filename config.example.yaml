@@ -1,0 +1,76 @@
+# ============================================================
+#  H1 Scope Watcher — configuration file
+#  Copy this file to config.yaml and fill in your values.
+#
+#  SECURITY: Never commit your real API token or webhook URLs
+#  to version control. Use environment variables for secrets
+#  (see .env.example) or keep config.yaml in .gitignore.
+# ============================================================
+
+# ── HackerOne Credentials ────────────────────────────────────
+hackerone:
+  # Your HackerOne username (not email, not display name)
+  username: "your_h1_username"
+
+  # Generate at: https://hackerone.com/settings/api_token/edit
+  # Requires "Programs" read permission.
+  api_token: "your_h1_api_token"
+
+
+# ── Programs to Watch ────────────────────────────────────────
+# Add as many handles as you like.
+# The handle is the last segment of the program URL:
+#   https://hackerone.com/security → handle is "security"
+programs:
+  - security           # HackerOne's own program (good test target)
+  # - google
+  # - shopify
+  # - another_program
+
+
+# ── Scheduler ────────────────────────────────────────────────
+scheduler:
+  # How often to poll for changes (in minutes).
+  # Recommended: 15–60 minutes. Be respectful of H1's API limits.
+  interval_minutes: 30
+
+
+# ── Storage ──────────────────────────────────────────────────
+storage:
+  # Directory where scope snapshots are stored as JSON files.
+  # Will be created automatically if it does not exist.
+  path: "snapshots"
+
+
+# ── Logging ──────────────────────────────────────────────────
+# Options: DEBUG | INFO | WARNING | ERROR
+log_level: "INFO"
+
+
+# ── Notifiers ────────────────────────────────────────────────
+# Only notifiers with their required fields filled in will be used.
+# Leave unused sections empty or remove them entirely.
+
+notifiers:
+
+  # ── Discord ────────────────────────────────────────────────
+  # How to get a webhook URL:
+  #   Channel settings → Integrations → Webhooks → New Webhook → Copy URL
+  discord:
+    webhook_url: ""          # e.g. https://discord.com/api/webhooks/…
+    username: "H1 Scope Watcher"   # Bot display name in Discord (optional)
+
+  # ── Telegram ───────────────────────────────────────────────
+  # How to set up:
+  #   1. Message @BotFather on Telegram → /newbot → copy the token
+  #   2. Start your bot or add it to a group
+  #   3. Get your chat_id: https://api.telegram.org/bot<TOKEN>/getUpdates
+  telegram:
+    bot_token: ""            # e.g. 123456789:ABCDEF…
+    chat_id: ""              # e.g. 987654321 (personal) or -100… (group)
+
+  # ── Slack ──────────────────────────────────────────────────
+  # How to get a webhook URL:
+  #   https://api.slack.com/apps → Create App → Incoming Webhooks → Add Webhook
+  slack:
+    webhook_url: ""          # e.g. https://hooks.slack.com/services/…

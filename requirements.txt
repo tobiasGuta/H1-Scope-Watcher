@@ -1,0 +1,6 @@
+# H1 Scope Watcher — Python dependencies
+# Install with: pip install -r requirements.txt
+
+requests>=2.31.0
+PyYAML>=6.0.1
+urllib3>=2.0.0

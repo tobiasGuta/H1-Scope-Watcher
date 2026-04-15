@@ -1,0 +1,39 @@
+# Secrets — never commit these
+.env
+config.yaml
+
+# Scope snapshots (local state — no need to version control)
+snapshots/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.whl
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Logs
+*.log
+.venv/
+/.venv/
+venv/
+env/
+logs/
+

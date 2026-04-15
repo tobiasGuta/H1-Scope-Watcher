@@ -1,0 +1,42 @@
+# ============================================================
+#  H1 Scope Watcher — Docker Compose
+#  Usage: docker compose up -d
+# ============================================================
+
+version: "3.9"
+
+services:
+  h1-scope-watcher:
+    build: .
+    image: h1-scope-watcher:latest
+    container_name: h1-scope-watcher
+
+    restart: unless-stopped
+
+    # Mount your filled-in config file
+    volumes:
+      - ./config.yaml:/app/config.yaml:ro
+      - snapshots:/app/snapshots
+
+    # Override any config value via environment variables.
+    # Secrets are best passed here (or via a .env file) rather than
+    # baked into config.yaml.
+    environment:
+      - H1_USERNAME=${H1_USERNAME:-}
+      - H1_API_TOKEN=${H1_API_TOKEN:-}
+      - DISCORD_WEBHOOK_URL=${DISCORD_WEBHOOK_URL:-}
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID:-}
+      - SLACK_WEBHOOK_URL=${SLACK_WEBHOOK_URL:-}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+
+    # Resource limits — the watcher is very lightweight
+    deploy:
+      resources:
+        limits:
+          cpus: "0.25"
+          memory: 128M
+
+volumes:
+  snapshots:
+    driver: local
