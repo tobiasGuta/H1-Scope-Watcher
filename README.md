@@ -300,6 +300,14 @@ Removed (1)
   • `legacy.example.com` [URL] — Bounty | High
 ```
 
+## Examples:
+
+<img width="1068" height="293" alt="Screenshot From 2026-04-14 21-47-31" src="https://github.com/user-attachments/assets/d018ecd3-8d71-4dac-bf66-39d0ddbcc6a1" />
+
+<img width="297" height="46" alt="Screenshot From 2026-04-14 21-48-11" src="https://github.com/user-attachments/assets/1fab5ae9-dcb7-4927-9c20-49ebb22d08c8" />
+
+<img width="1063" height="936" alt="Screenshot From 2026-04-14 21-48-23" src="https://github.com/user-attachments/assets/18e08901-f806-4fd2-90c4-35712a329aeb" />
+
 ---
 
 ## Contributing
