@@ -3,8 +3,6 @@
 #  Usage: docker compose up -d
 # ============================================================
 
-version: "3.9"
-
 services:
   h1-scope-watcher:
     build: .
@@ -16,7 +14,7 @@ services:
     # Mount your filled-in config file
     volumes:
       - ./config.yaml:/app/config.yaml:ro
-      - snapshots:/app/snapshots
+      - ./snapshots:/app/snapshots
 
     # Override any config value via environment variables.
     # Secrets are best passed here (or via a .env file) rather than
@@ -37,6 +35,5 @@ services:
           cpus: "0.25"
           memory: 128M
 
-volumes:
-  snapshots:
-    driver: local
+# Using a host bind-mount for `./snapshots` keeps ownership controllable from
+# the host. Create the folder locally and ensure the container can write to it.

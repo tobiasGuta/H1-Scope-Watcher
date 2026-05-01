@@ -4,6 +4,8 @@ import logging
 from typing import Any
 
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 from core.differ import ScopeDiff
 from notifiers.base import BaseNotifier
@@ -13,6 +15,21 @@ logger = logging.getLogger("h1watcher.notifiers.discord")
 _DISCORD_COLOR_GREEN = 0x2ECC71
 _DISCORD_COLOR_RED = 0xE74C3C
 _DISCORD_COLOR_BLUE = 0x3498DB
+
+
+def _build_session() -> requests.Session:
+    """Build a requests Session with retries for the Discord webhook."""
+    session = requests.Session()
+    retry = Retry(
+        total=5,
+        backoff_factor=2,
+        status_forcelist={429, 500, 502, 503, 504},
+        allowed_methods=["POST"],
+    )
+    adapter = HTTPAdapter(max_retries=retry)
+    session.mount("https://", adapter)
+    session.mount("http://", adapter)
+    return session
 
 
 class DiscordNotifier(BaseNotifier):
@@ -27,6 +44,7 @@ class DiscordNotifier(BaseNotifier):
             "avatar_url",
             "https://www.hackerone.com/sites/default/files/2022-01/hackerone-logo.png",
         )
+        self._session = _build_session()
 
     def is_configured(self) -> bool:
         return bool(self._webhook_url)
@@ -58,7 +76,7 @@ class DiscordNotifier(BaseNotifier):
         }
 
         try:
-            resp = requests.post(self._webhook_url, json=payload, timeout=15)
+            resp = self._session.post(self._webhook_url, json=payload, timeout=15)
             resp.raise_for_status()
             logger.info("Discord notification sent for %s", diff.handle)
         except requests.RequestException as exc:
@@ -86,7 +104,7 @@ class DiscordNotifier(BaseNotifier):
         }
 
         try:
-            resp = requests.post(self._webhook_url, json=payload, timeout=10)
+            resp = self._session.post(self._webhook_url, json=payload, timeout=10)
             resp.raise_for_status()
             logger.info("Discord health ping sent")
         except requests.RequestException as exc:
