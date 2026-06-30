@@ -220,6 +220,51 @@ docker run -d \
   -e H1_API_TOKEN="your_token" \
   h1-scope-watcher
 ```
+---
+
+### Deployment via Native WSL Containers (Public Preview)
+
+If you are running Windows 11 and want to eliminate your reliance on heavy background virtualization engines like Docker Desktop, you can run the watcher natively using the new Windows Subsystem for Linux container feature (`wslc`). This passes your file writes through `virtiofs` directly onto your host filesystem at near-native speeds.
+
+#### 1. Build the image natively
+Open your terminal in the repository root and compile the image using the native WSL build engine:
+
+```bash
+wslc build -t h1-scope-watcher:latest .
+```
+
+#### 2\. Run the container
+
+Launch the container in detached mode (`-d`). Provide your absolute Windows paths to mount your `config.yaml` and your local `snapshots` tracking directory:
+
+PowerShell
+
+```
+wslc run -d `
+  --name h1-watcher `
+  -e H1_USERNAME="your_hackerone_username" `
+  -e H1_API_TOKEN="your_h1_api_token" `
+  -v "D:\Tools\H1-Scope-Watcher\config.yaml:/app/config.yaml:ro" `
+  -v "D:\Tools\H1-Scope-Watcher\snapshots:/app/snapshots" `
+  h1-scope-watcher:latest
+
+```
+
+*(Be sure to replace `D:\Tools\H1-Scope-Watcher` with the actual path to your local project directory).*
+
+> ⚠️ **Public Preview Limitations:** The current preview implementation of `wslc` does not support multi-container orchestration or container restart policies (the `--restart` flag is unsupported). If your WSL architecture or host machine reboots, you must manually restart the background poller by running:
+
+```
+wslc container start h1-watcher
+```
+
+#### 3\. View logs
+
+Monitor baseline snapshot generation or lookup activity directly via the command line:
+
+```
+wslc logs -f h1-watcher
+```
 
 ---
 
