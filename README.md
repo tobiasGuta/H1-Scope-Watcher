@@ -34,8 +34,8 @@ Never miss a new in-scope target again. H1 Scope Watcher polls the HackerOne API
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourhandle/h1-scope-watcher.git
-cd h1-scope-watcher
+git clone https://github.com/tobiasGuta/H1-Scope-Watcher.git
+cd H1-Scope-Watcher
 ```
 
 ### 2. Install dependencies
