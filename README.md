@@ -222,7 +222,7 @@ docker run -d \
 ```
 ---
 
-### Deployment via Native WSL Containers (Public Preview)
+### Deployment via Native WSL Containers (Public Preview) [WSL container is now available for public preview](https://devblogs.microsoft.com/commandline/wsl-container-is-now-available-for-public-preview/)
 
 If you are running Windows 11 and want to eliminate your reliance on heavy background virtualization engines like Docker Desktop, you can run the watcher natively using the new Windows Subsystem for Linux container feature (`wslc`). This passes your file writes through `virtiofs` directly onto your host filesystem at near-native speeds.
 
